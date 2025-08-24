@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Setting up the basic HTML document structure -->
+    <meta charset="UTF-8"> <!-- Ensures proper character encoding for all languages -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the website responsive on all devices -->
+    <title>Varnika Jewellers - Premium Gold & Silver Jewelry</title> <!-- Browser tab title -->
+    
+    <!-- Loading external CSS frameworks and fonts -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS for responsive styling -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> <!-- Font Awesome icons -->
+    
+    <style>
+        /* ===== CUSTOM CSS STYLES START HERE ===== */
+        /* These styles create the beautiful visual effects you see on the website */
+        /* ===== DYNAMIC BACKGROUND ANIMATIONS ===== */
+        /* Creates the beautiful moving background you see behind everything */
+        
+        body {
+            position: relative; /* Allows child elements to be positioned relative to body */
+            overflow-x: hidden; /* Prevents horizontal scrolling on mobile devices */
+        }
+        
+        /* The main animated background with shifting golden colors */
+        .dynamic-bg {
+            position: fixed; /* Stays in place when user scrolls */
+            top: 0; left: 0; /* Positioned at top-left corner */
+            width: 100%; height: 100%; /* Covers entire screen */
+            z-index: -1; /* Places it behind all other content */
+            /* Golden gradient colors that match jewelry theme */
+            background: linear-gradient(45deg, #fef7cd, #fef3c7, #fde68a, #fcd34d);
+            background-size: 400% 400%; /* Makes gradient larger for smooth animation */
+            animation: gradientShift 15s ease infinite; /* Continuously shifts colors */
+        }
+        
+        /* Container for floating jewelry emojis */
+        .floating-shapes {
+            position: fixed; /* Stays in place during scroll */
+            top: 0; left: 0; /* Covers entire screen */
+            width: 100%; height: 100%;
+            z-index: -1; /* Behind main content */
+            pointer-events: none; /* User can't click on floating shapes */
+        }
+        
+        /* Individual floating jewelry shapes (💎, 👑, ✨, etc.) */
+        .shape {
+            position: absolute; /* Can be positioned anywhere */
+            opacity: 0.1; /* Very transparent so they don't distract */
+            animation: float 20s infinite linear; /* Continuously float upward */
+        }
+        
+        /* Each shape starts at different horizontal positions and times */
+        .shape:nth-child(1) { left: 10%; animation-delay: 0s; }  /* First shape starts immediately */
+        .shape:nth-child(2) { left: 20%; animation-delay: 2s; }  /* Second shape starts after 2 seconds */
+        .shape:nth-child(3) { left: 30%; animation-delay: 4s; }  /* Third shape starts after 4 seconds */
+        .shape:nth-child(4) { left: 40%; animation-delay: 6s; }  /* And so on... */
+        .shape:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .shape:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .shape:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .shape:nth-child(8) { left: 80%; animation-delay: 14s; }
+        .shape:nth-child(9) { left: 90%; animation-delay: 16s; }
+        
+        /* Animation that makes the background colors shift smoothly */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }   /* Start position */
+            50% { background-position: 100% 50%; } /* Middle position */
+            100% { background-position: 0% 50%; }  /* End position (back to start) */
+        }
+        
+        /* Animation that makes shapes float from bottom to top while rotating */
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }   /* Start below screen, no rotation */
+            100% { transform: translateY(-100px) rotate(360deg); } /* End above screen, full rotation */
+        }
+        
+        /* ===== INTERACTIVE CURSOR TRAIL EFFECTS ===== */
+        /* Creates the golden sparkle trail that follows your mouse cursor */
+        
+        /* Base style for all cursor trail elements */
+        .cursor-trail {
+            position: fixed; /* Follows mouse position exactly */
+            width: 20px; height: 20px; /* Size of cursor elements */
+            border-radius: 50%; /* Makes them perfectly circular */
+            pointer-events: none; /* User can still click through them */
+            z-index: 9999; /* Appears above everything else */
+            transition: all 0.1s ease; /* Smooth movement animation */
+        }
+        
+        /* The main golden dot that follows cursor closely */
+        .cursor-dot {
+            /* Golden gradient from light to dark */
+            background: radial-gradient(circle, #fbbf24, #f59e0b);
+            /* Glowing effect with multiple shadow layers */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.8), 0 0 40px rgba(251, 191, 36, 0.4);
+            animation: pulse 2s infinite; /* Gentle pulsing effect */
+        }
+        
+        /* The outline circle that follows cursor with delay */
+        .cursor-outline {
+            border: 2px solid #fbbf24; /* Golden border only */
+            background: transparent; /* Hollow center */
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6); /* Softer glow */
+            animation: pulse 2s infinite reverse; /* Pulses opposite to dot */
+        }
+        
+        /* ===== SPARKLE TRAIL EFFECTS ===== */
+        /* Small sparkles that appear behind cursor movement */
+        
+        .sparkle-trail {
+            position: fixed; /* Positioned where cursor was */
+            width: 6px; height: 6px; /* Smaller than main cursor */
+            background: radial-gradient(circle, #fbbf24, #f59e0b); /* Same golden colors */
+            border-radius: 50%; /* Circular sparkles */
+            pointer-events: none; /* Don't interfere with clicking */
+            z-index: 9998; /* Just below main cursor */
+            /* Glowing sparkle effect */
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.8), 0 0 20px rgba(251, 191, 36, 0.4);
+            animation: sparkleTrail 1s ease-out forwards; /* Fade out animation */
+        }
+        
+        /* Animation for sparkles - they shrink and fade away */
+        @keyframes sparkleTrail {
+            0% {
+                opacity: 1; /* Start fully visible */
+                transform: scale(1) rotate(0deg); /* Normal size, no rotation */
+            }
+            100% {
+                opacity: 0; /* Fade to invisible */
+                transform: scale(0.3) rotate(180deg); /* Shrink and spin */
+            }
+        }
+        
+        /* ===== PRODUCT CARD INTERACTIVE EFFECTS ===== */
+        /* Makes jewelry product cards beautiful and interactive */
+        
+        /* Container for product images with zoom effect */
+        .zoom-container {
+            position: relative; /* Allows child positioning */
+            overflow: hidden; /* Hides zoomed parts that go outside */
+            cursor: zoom-in; /* Shows zoom cursor when hovering */
+        }
+        
+        /* The actual product image inside zoom container */
+        .zoom-image {
+            transition: transform 0.3s ease; /* Smooth zoom animation */
+        }
+        
+        /* When user hovers over image, it zooms in 2x */
+        .zoom-container:hover .zoom-image {
+            transform: scale(2); /* Makes image twice as large */
+        }
+        
+        /* Main product card styling with glass effect */
+        .product-card {
+            transition: all 0.3s ease; /* Smooth animation for all changes */
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Blurs background behind card */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+        }
+        
+        /* When user hovers over product card */
+        .product-card:hover {
+            transform: translateY(-5px); /* Lifts card up slightly */
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.3); /* Golden shadow */
+            background: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+        }
+        
+        /* ===== GLASS MORPHISM EFFECTS ===== */
+        /* Creates modern glass-like transparent elements */
+        
+        /* General glass effect for navigation and UI elements */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Blurs content behind element */
+            border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle glass border */
+        }
+        
+        /* ===== SPECIAL ANIMATION CLASSES ===== */
+        
+        /* Slow pulsing animation for live rates display */
+        .animate-pulse-slow {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* Golden gradient for gold jewelry sections */
+        .gradient-gold {
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+            /* Creates gradient from light gold to dark orange */
+        }
+        
+        /* Silver gradient for silver jewelry sections */
+        .gradient-silver {
+            background: linear-gradient(135deg, #C0C0C0, #A8A8A8, #808080);
+            /* Creates gradient from light silver to dark gray */
+        }
+        
+        /* ===== THEME-SPECIFIC STYLING ===== */
+        
+        /* Light theme card styling with enhanced glass effect */
+        .light-card {
+            background: rgba(255, 255, 255, 0.9); /* More opaque for better readability */
+            backdrop-filter: blur(10px); /* Blurs background */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Visible border */
+            box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1); /* Subtle golden shadow */
+        }
+        
+        /* Header styling with strong glass effect */
+        .light-header {
+            background: rgba(255, 255, 255, 0.95); /* Almost opaque for readability */
+            backdrop-filter: blur(20px); /* Strong blur effect */
+            border-bottom: 1px solid rgba(251, 191, 36, 0.2); /* Golden bottom border */
+        }
+        
+        /* ===== DECORATIVE SPARKLE ANIMATIONS ===== */
+        /* Small sparkles that appear on category cards */
+        
+        .sparkle {
+            position: absolute; /* Positioned relative to parent card */
+            width: 4px; height: 4px; /* Small sparkle size */
+            background: #fbbf24; /* Golden color */
+            border-radius: 50%; /* Circular shape */
+            animation: sparkle 3s infinite; /* Continuous sparkle animation */
+        }
+        
+        /* Animation that makes sparkles appear and disappear */
+        @keyframes sparkle {
+            0%, 100% { 
+                opacity: 0; /* Invisible at start and end */
+                transform: scale(0); /* No size */
+            }
+            50% { 
+                opacity: 1; /* Fully visible in middle */
+                transform: scale(1); /* Full size */
+            }
+        }
+        
+        /* ===== MOBILE RESPONSIVE UTILITIES ===== */
+        /* Special styles to make the website work perfectly on mobile */
+        
+        /* Limits text to 2 lines with ellipsis (...) */
+        .line-clamp-2 {
+            display: -webkit-box; /* Special display mode for line clamping */
+            -webkit-line-clamp: 2; /* Limit to 2 lines */
+            -webkit-box-orient: vertical; /* Stack lines vertically */
+            overflow: hidden; /* Hide overflow text */
+        }
+        
+        /* ===== MOBILE-SPECIFIC OPTIMIZATIONS ===== */
+        /* These styles only apply on mobile devices (screens smaller than 768px) */
+        @media (max-width: 768px) {
+            /* Make all buttons touch-friendly (minimum 44px as per Apple guidelines) */
+            button, .cursor-pointer {
+                min-height: 44px; /* Minimum height for easy tapping */
+                min-width: 44px; /* Minimum width for easy tapping */
+            }
+            
+            /* Disable hover effects on touch devices (they don't work well) */
+            .product-card:hover {
+                transform: none; /* No lifting effect on mobile */
+            }
+            
+            /* Reduce zoom level on mobile for better usability */
+            .zoom-container:hover .zoom-image {
+                transform: scale(1.5); /* 1.5x instead of 2x zoom */
+            }
+        }
+        
+        /* ===== VERY SMALL SCREEN OPTIMIZATIONS ===== */
+        /* For very small phones (320px and smaller) */
+        @media (max-width: 320px) {
+            .container {
+                padding-left: 0.5rem; /* Reduce left padding */
+                padding-right: 0.5rem; /* Reduce right padding */
+            }
+        }
+    </style>
+</head>
+<body class="transition-colors duration-300"> <!-- Smooth color transitions for theme switching -->
+
+    <!-- ===== BACKGROUND VISUAL EFFECTS ===== -->
+    <!-- These create the beautiful animated background you see -->
+    
+    <!-- Dynamic Background: The shifting golden gradient background -->
+    <div class="dynamic-bg"></div>
+    
+    <!-- Floating Shapes: Jewelry emojis that float upward continuously -->
+    <div class="floating-shapes">
+        <div class="shape text-4xl">💎</div> <!-- Diamond emoji -->
+        <div class="shape text-3xl">👑</div> <!-- Crown emoji -->
+        <div class="shape text-5xl">✨</div> <!-- Sparkles emoji -->
+        <div class="shape text-3xl">💍</div> <!-- Ring emoji -->
+        <div class="shape text-4xl">📿</div> <!-- Prayer beads emoji -->
+        <div class="shape text-3xl">⚪</div> <!-- White circle emoji -->
+        <div class="shape text-4xl">🔶</div> <!-- Orange diamond emoji -->
+        <div class="shape text-3xl">🌟</div> <!-- Star emoji -->
+        <div class="shape text-5xl">💫</div> <!-- Dizzy star emoji -->
+    </div>
+    
+    <!-- ===== INTERACTIVE CURSOR EFFECTS ===== -->
+    <!-- These follow your mouse cursor and create sparkle trails -->
+    
+    <!-- Main cursor dot that follows mouse closely -->
+    <div class="cursor-trail cursor-dot" id="cursorDot"></div>
+    <!-- Outline circle that follows with slight delay -->
+    <div class="cursor-trail cursor-outline" id="cursorOutline"></div>
+    <!-- ===== LOGIN/REGISTER MODAL ===== -->
+    <!-- Modal for user authentication -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="light-card rounded-xl p-6 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="authTitle" class="text-2xl font-bold text-gray-800">Login</h3>
+                <button onclick="closeAuth()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm">
+                <form onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                            <input type="text" id="loginUsername" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="loginPassword" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition-colors">
+                            Login
+                        </button>
+                    </div>
+                </form>
+                <p class="text-center mt-4 text-sm text-gray-600">
+                    Don't have an account? 
+                    <button onclick="showRegister()" class="text-yellow-600 hover:text-yellow-700 font-semibold">Register</button>
+                </p>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="hidden">
+                <form onsubmit="handleRegister(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="registerName" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                            <input type="text" id="registerUsername" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="registerEmail" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="registerPassword" required minlength="6"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition-colors">
+                            Register
+                        </button>
+                    </div>
+                </form>
+                <p class="text-center mt-4 text-sm text-gray-600">
+                    Already have an account? 
+                    <button onclick="showLogin()" class="text-yellow-600 hover:text-yellow-700 font-semibold">Login</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN PANEL MODAL ===== -->
+    <!-- Admin interface for managing gold and silver rates -->
+    <div id="adminModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="light-card rounded-xl p-6 max-w-lg w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Admin Panel</h3>
+                <button onclick="closeAdmin()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Current Rates Display -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">Current Rates</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600">Gold Rate</p>
+                            <p class="text-xl font-bold text-yellow-600">₹<span id="adminCurrentGold">6500</span>/g</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600">Silver Rate</p>
+                            <p class="text-xl font-bold text-gray-600">₹<span id="adminCurrentSilver">85</span>/g</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rate Update Form -->
+                <form onsubmit="updateRates(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">New Gold Rate (₹/gram)</label>
+                            <input type="number" id="newGoldRate" step="0.01" min="1" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">New Silver Rate (₹/gram)</label>
+                            <input type="number" id="newSilverRate" step="0.01" min="1" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition-colors">
+                            <i class="fas fa-save mr-2"></i>Update Rates
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Rate History -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">Recent Updates</h4>
+                    <div id="rateHistory" class="space-y-2 max-h-32 overflow-y-auto">
+                        <!-- Rate history will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== WEBSITE HEADER SECTION ===== -->
+    <!-- Contains logo, navigation, search, and user actions -->
+    
+    <header class="light-header shadow-lg sticky top-0 z-50 transition-colors duration-300">
+        <!-- Sticky header that stays at top when scrolling, with glass effect -->
+        
+        <div class="container mx-auto px-2 sm:px-4 py-2 sm:py-4">
+            <!-- Responsive container with different padding for mobile/desktop -->
+            
+            <!-- ===== MOBILE HEADER LAYOUT ===== -->
+            <!-- This section only shows on mobile devices (hidden on desktop with md:hidden) -->
+            <div class="flex items-center justify-between md:hidden">
+                
+                <!-- Mobile Logo Section -->
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold gradient-gold bg-clip-text text-transparent">Varnika</h1>
+                    <!-- Shortened logo for mobile to save space -->
+                </div>
+                
+                <!-- Mobile Action Buttons Row -->
+                <div class="flex items-center space-x-2">
+                    
+                    <!-- Mobile Search Toggle Button -->
+                    <button id="mobileSearchToggle" class="p-2 text-gray-600 hover:text-gray-800 transition-colors">
+                        <i class="fas fa-search text-lg"></i> <!-- Search icon -->
+                    </button>
+                    
+                    <!-- Mobile Wishlist Button with Counter -->
+                    <button id="wishlistBtn" class="relative p-2 text-red-500 hover:text-red-600 transition-colors">
+                        <i class="fas fa-heart text-lg"></i> <!-- Heart icon -->
+                        <!-- Red counter badge showing number of wishlist items -->
+                        <span id="wishlistCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center text-xs">0</span>
+                    </button>
+                    
+                    <!-- Mobile Cart Button with Counter -->
+                    <button id="cartBtn" class="relative p-2 text-yellow-600 hover:text-yellow-700 transition-colors">
+                        <i class="fas fa-shopping-cart text-lg"></i> <!-- Shopping cart icon -->
+                        <!-- Yellow counter badge showing number of cart items -->
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center text-xs">0</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Toggle (Hamburger Menu) -->
+                    <button id="mobileMenuToggle" class="p-2 text-gray-600 hover:text-gray-800 transition-colors">
+                        <i class="fas fa-bars text-lg"></i> <!-- Hamburger menu icon -->
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Desktop Header -->
+            <div class="hidden md:flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-3xl font-bold gradient-gold bg-clip-text text-transparent">Varnika Jewellers</h1>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Premium Collection</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Search jewelry..." 
+                               class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    
+                    <!-- Wishlist -->
+                    <button id="wishlistBtn" class="relative p-2 text-red-500 hover:text-red-600 transition-colors">
+                        <i class="fas fa-heart text-xl"></i>
+                        <span id="wishlistCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                    
+                    <!-- Cart -->
+                    <button id="cartBtn" class="relative p-2 text-yellow-600 hover:text-yellow-700 transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                    
+                    <!-- Login/User Profile -->
+                    <div id="userSection">
+                        <!-- Show when not logged in -->
+                        <div id="loginSection">
+                            <button onclick="openAuth()" class="p-2 text-blue-500 hover:text-blue-600 transition-colors">
+                                <i class="fas fa-user text-xl"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Show when logged in -->
+                        <div id="userProfileSection" class="hidden">
+                            <div class="flex items-center space-x-2">
+                                <span id="welcomeUser" class="text-sm text-gray-600 dark:text-gray-300"></span>
+                                <button onclick="logout()" class="p-2 text-red-500 hover:text-red-600 transition-colors" title="Logout">
+                                    <i class="fas fa-sign-out-alt text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact -->
+                    <a href="https://instagram.com/varnikajewellers" target="_blank" class="p-2 text-pink-500 hover:text-pink-600 transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile Search Bar -->
+            <div id="mobileSearchBar" class="hidden md:hidden mt-3 px-2">
+                <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search jewelry..." 
+                           class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-3 pb-2">
+                <div class="flex flex-col space-y-2">
+                    <button id="mobileThemeToggle" class="flex items-center justify-center p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon dark:hidden mr-2"></i>
+                        <i class="fas fa-sun hidden dark:block mr-2"></i>
+                        <span class="dark:hidden">Dark Mode</span>
+                        <span class="hidden dark:block">Light Mode</span>
+                    </button>
+                    <!-- Mobile Login/Profile -->
+                    <div id="mobileUserSection">
+                        <!-- Show when not logged in -->
+                        <div id="mobileLoginSection">
+                            <button onclick="openAuth()" class="flex items-center justify-center p-2 text-blue-500 hover:text-blue-600 transition-colors">
+                                <i class="fas fa-user mr-2"></i>
+                                Login / Register
+                            </button>
+                        </div>
+                        
+                        <!-- Show when logged in -->
+                        <div id="mobileUserProfileSection" class="hidden">
+                            <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-600 rounded-lg">
+                                <span id="mobileWelcomeUser" class="text-sm text-gray-600 dark:text-gray-300"></span>
+                                <button onclick="logout()" class="text-red-500 hover:text-red-600 transition-colors">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="https://instagram.com/varnikajewellers" target="_blank" class="flex items-center justify-center p-2 text-pink-500 hover:text-pink-600 transition-colors">
+                        <i class="fab fa-instagram mr-2"></i>
+                        Follow us on Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Live Rates Banner -->
+    <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-2">
+        <div class="container mx-auto px-4 text-center">
+            <span class="font-semibold">Live Rates: </span>
+            <span id="goldRate" class="animate-pulse-slow">Gold: ₹Loading...</span>
+            <span class="mx-4">|</span>
+            <span id="silverRate" class="animate-pulse-slow">Silver: ₹Loading...</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-effect py-2 sm:py-4 transition-colors duration-300">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-8">
+                <button onclick="showCategory('gold')" class="nav-btn px-4 sm:px-6 py-2 rounded-lg font-semibold gradient-gold text-white hover:opacity-90 transition-opacity text-sm sm:text-base">
+                    <i class="fas fa-crown mr-1 sm:mr-2"></i>Gold Collection
+                </button>
+                <button onclick="showCategory('silver')" class="nav-btn px-4 sm:px-6 py-2 rounded-lg font-semibold gradient-silver text-white hover:opacity-90 transition-opacity text-sm sm:text-base">
+                    <i class="fas fa-gem mr-1 sm:mr-2"></i>Silver Collection
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        <!-- Category Selection -->
+        <div id="categoryView" class="text-center">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-8">Choose Your Collection</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto">
+                <div onclick="showCategory('gold')" class="cursor-pointer group">
+                    <div class="light-card rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300">
+                        <div class="gradient-gold h-24 sm:h-32 flex items-center justify-center relative">
+                            <i class="fas fa-crown text-4xl sm:text-6xl text-white"></i>
+                            <div class="sparkle" style="top: 20%; left: 30%; animation-delay: 0s;"></div>
+                            <div class="sparkle" style="top: 70%; left: 70%; animation-delay: 1s;"></div>
+                            <div class="sparkle" style="top: 40%; left: 80%; animation-delay: 2s;"></div>
+                        </div>
+                        <div class="p-4 sm:p-6">
+                            <h3 class="text-lg sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2">Gold Collection</h3>
+                            <p class="text-sm sm:text-base text-gray-600">Exquisite gold jewelry crafted with precision</p>
+                        </div>
+                    </div>
+                </div>
+                <div onclick="showCategory('silver')" class="cursor-pointer group">
+                    <div class="light-card rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300">
+                        <div class="gradient-silver h-24 sm:h-32 flex items-center justify-center relative">
+                            <i class="fas fa-gem text-4xl sm:text-6xl text-white"></i>
+                            <div class="sparkle" style="top: 25%; left: 25%; animation-delay: 0.5s;"></div>
+                            <div class="sparkle" style="top: 65%; left: 75%; animation-delay: 1.5s;"></div>
+                            <div class="sparkle" style="top: 45%; left: 85%; animation-delay: 2.5s;"></div>
+                        </div>
+                        <div class="p-4 sm:p-6">
+                            <h3 class="text-lg sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2">Silver Collection</h3>
+                            <p class="text-sm sm:text-base text-gray-600">Elegant silver pieces for every occasion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subcategory View -->
+        <div id="subcategoryView" class="hidden">
+            <div class="flex items-center mb-4 sm:mb-6">
+                <button onclick="showCategoryView()" class="text-yellow-600 hover:text-yellow-700 mr-2 sm:mr-4">
+                    <i class="fas fa-arrow-left text-lg sm:text-xl"></i>
+                </button>
+                <h2 id="subcategoryTitle" class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white"></h2>
+            </div>
+            <div id="subcategoryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4"></div>
+        </div>
+
+        <!-- Products View -->
+        <div id="productsView" class="hidden">
+            <div class="flex items-center mb-4 sm:mb-6">
+                <button onclick="goBack()" class="text-yellow-600 hover:text-yellow-700 mr-2 sm:mr-4">
+                    <i class="fas fa-arrow-left text-lg sm:text-xl"></i>
+                </button>
+                <h2 id="productsTitle" class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white"></h2>
+            </div>
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" class="hidden">
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6">Search Results</h2>
+            <div id="searchGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
+        </div>
+    </main>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-2 sm:p-4">
+        <div class="light-card rounded-xl p-4 sm:p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-800">My Wishlist</h3>
+                <button onclick="closeWishlist()" class="text-gray-500 hover:text-gray-700 p-1">
+                    <i class="fas fa-times text-lg sm:text-xl"></i>
+                </button>
+            </div>
+            <div id="wishlistItems" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-2 sm:p-4">
+        <div class="light-card rounded-xl p-4 sm:p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-800">Shopping Cart</h3>
+                <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700 p-1">
+                    <i class="fas fa-times text-lg sm:text-xl"></i>
+                </button>
+            </div>
+            <div id="cartItems" class="space-y-3 sm:space-y-4 mb-4 sm:mb-6"></div>
+            <div class="border-t pt-4">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+                    <span class="text-lg sm:text-xl font-bold text-gray-800">Total: ₹<span id="cartTotal">0</span></span>
+                    <button onclick="checkout()" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base">
+                        <i class="fab fa-whatsapp mr-1 sm:mr-2"></i>Checkout via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ===== JAVASCRIPT CODE STARTS HERE ===== */
+        /* This code makes the website interactive and functional */
+        
+        // ===== GLOBAL VARIABLES =====
+        // These variables store the current state of the website
+        
+        let currentCategory = '';      // Stores whether user is viewing 'gold' or 'silver'
+        let currentSubcategory = '';   // Stores current jewelry type (rings, necklaces, etc.)
+        let currentView = 'category';  // Tracks which page user is on (category/subcategory/products/search)
+        let wishlist = [];            // Array to store user's favorite items
+        let cart = [];               // Array to store items user wants to buy
+        let goldRate = 6500;         // Current gold price per gram (default value)
+        let silverRate = 85;         // Current silver price per gram (default value)
+        
+        // ===== AUTHENTICATION VARIABLES =====
+        // These variables manage user login and admin access
+        let currentUser = null;       // Stores logged-in user information
+        let isAdmin = false;         // Tracks if current user is admin
+        let users = [];             // Array to store registered users
+        let rateHistory = [];       // Array to store rate change history
+
+        // ===== DATA GENERATION FUNCTION =====
+        // This function creates all the jewelry products you see on the website
+        function generateJewelryData() {
+            // ===== JEWELRY CATEGORY ARRAYS =====
+            // These arrays define all the different types of jewelry available
+            
+            // Gold jewelry categories - 50 different types
+            const goldCategories = [
+                // Traditional jewelry types
+                'Jhumki', 'Necklace', 'Rings', 'Bangles', 'Earrings', 'Chains', 'Pendants', 'Bracelets', 'Anklets', 'Nose Pins',
+                'Toe Rings', 'Armlets', 'Hair Accessories', 'Brooches', 'Cufflinks', 'Mangalsutra', 'Waist Chains', 'Maang Tikka', 'Passa', 'Kalire',
+                
+                // Special occasion jewelry
+                'Temple Jewelry', 'Kundan Sets', 'Polki Sets', 'Antique Sets', 'Bridal Sets', 'Party Wear', 'Daily Wear', 'Office Wear', 'Festive Wear', 'Wedding Jewelry',
+                
+                // Gemstone and precious stone jewelry
+                'Diamond Sets', 'Gemstone Sets', 'Pearl Sets', 'Coral Sets', 'Emerald Sets', 'Ruby Sets', 'Sapphire Sets', 'Tanzanite Sets', 'Topaz Sets', 'Amethyst Sets',
+                
+                // Style-based categories
+                'Traditional Sets', 'Contemporary Sets', 'Fusion Sets', 'Minimalist Sets', 'Statement Sets', 'Layered Sets', 'Stackable Sets', 'Convertible Sets', 'Modular Sets', 'Designer Sets'
+            ];
+
+            // Silver jewelry categories - 50 different types
+            const silverCategories = [
+                // Basic silver jewelry types
+                'Jhumki', 'Necklace', 'Rings', 'Bangles', 'Earrings', 'Chains', 'Pendants', 'Bracelets', 'Anklets', 'Nose Pins',
+                'Toe Rings', 'Armlets', 'Hair Accessories', 'Brooches', 'Cufflinks', 'Oxidized Jewelry', 'Tribal Jewelry', 'Bohemian Sets', 'Vintage Sets', 'Antique Sets',
+                
+                // Silver-specific techniques and finishes
+                'Temple Jewelry', 'Filigree Work', 'Engraved Sets', 'Textured Sets', 'Hammered Sets', 'Polished Sets', 'Matte Finish', 'Black Silver', 'Rose Gold Plated', 'Gold Plated',
+                
+                // Silver with gemstones
+                'Gemstone Sets', 'Pearl Sets', 'Coral Sets', 'Turquoise Sets', 'Onyx Sets', 'Moonstone Sets', 'Labradorite Sets', 'Amethyst Sets', 'Garnet Sets', 'Citrine Sets',
+                
+                // Modern silver styles
+                'Contemporary Sets', 'Fusion Sets', 'Minimalist Sets', 'Statement Sets', 'Layered Sets', 'Stackable Sets', 'Convertible Sets', 'Modular Sets', 'Designer Sets', 'Handcrafted Sets'
+            ];
+
+            const goldEmojis = ['🔶', '💎', '👑', '✨', '⭐', '🌟', '💫', '🔸', '🔹', '💛', '🟡', '🟨', '🌕', '☀️', '🌞'];
+            const silverEmojis = ['🌙', '🤍', '⚪', '⭕', '🔘', '⚫', '🌕', '🔵', '🟣', '🟢', '🟤', '⚫', '🔴', '🟠', '🟡'];
+
+            const designStyles = [
+                'Traditional', 'Modern', 'Contemporary', 'Vintage', 'Antique', 'Ethnic', 'Fusion', 'Minimalist', 'Statement', 'Delicate',
+                'Bold', 'Elegant', 'Casual', 'Formal', 'Bridal', 'Party', 'Daily Wear', 'Festive', 'Royal', 'Classic',
+                'Trendy', 'Chic', 'Sophisticated', 'Glamorous', 'Artistic', 'Handcrafted', 'Machine Made', 'Designer', 'Custom', 'Limited Edition'
+            ];
+
+            const data = { gold: {}, silver: {} };
+
+            // Generate Gold categories
+            goldCategories.forEach((category, catIndex) => {
+                const categoryKey = category.toLowerCase().replace(/\s+/g, '');
+                data.gold[categoryKey] = [];
+                
+                for (let i = 1; i <= 30; i++) {
+                    const weight = (Math.random() * 25 + 2).toFixed(1);
+                    const randomEmoji = goldEmojis[Math.floor(Math.random() * goldEmojis.length)];
+                    const randomDesigns = [];
+                    for (let j = 0; j < 3; j++) {
+                        const design = designStyles[Math.floor(Math.random() * designStyles.length)];
+                        if (!randomDesigns.includes(design)) randomDesigns.push(design);
+                    }
+                    
+                    data.gold[categoryKey].push({
+                        id: `g${catIndex * 30 + i}`,
+                        name: `${category} Design ${i}`,
+                        weight: parseFloat(weight),
+                        image: randomEmoji,
+                        designs: randomDesigns
+                    });
+                }
+            });
+
+            // Generate Silver categories
+            silverCategories.forEach((category, catIndex) => {
+                const categoryKey = category.toLowerCase().replace(/\s+/g, '');
+                data.silver[categoryKey] = [];
+                
+                for (let i = 1; i <= 30; i++) {
+                    const weight = (Math.random() * 30 + 3).toFixed(1);
+                    const randomEmoji = silverEmojis[Math.floor(Math.random() * silverEmojis.length)];
+                    const randomDesigns = [];
+                    for (let j = 0; j < 3; j++) {
+                        const design = designStyles[Math.floor(Math.random() * designStyles.length)];
+                        if (!randomDesigns.includes(design)) randomDesigns.push(design);
+                    }
+                    
+                    data.silver[categoryKey].push({
+                        id: `s${catIndex * 30 + i}`,
+                        name: `${category} Design ${i}`,
+                        weight: parseFloat(weight),
+                        image: randomEmoji,
+                        designs: randomDesigns
+                    });
+                }
+            });
+
+            return data;
+        }
+
+        // Sample jewelry data
+        const jewelryData = generateJewelryData();
+
+        // ===== APPLICATION INITIALIZATION =====
+        // This function runs when the webpage finishes loading
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for all HTML elements to be loaded, then start the app
+            
+            fetchLiveRates();        // Get current gold and silver prices
+            setupEventListeners();   // Set up button clicks and interactions
+            loadSavedData();        // Load user's saved wishlist and cart from browser
+            loadAuthData();         // Load user authentication data
+            initCursorTrail();      // Start the sparkle cursor trail effect
+        });
+
+        // ===== AUTHENTICATION FUNCTIONS =====
+        // These functions handle user login, registration, and admin access
+        
+        // Load authentication data from browser storage
+        function loadAuthData() {
+            // Load registered users from browser storage
+            const savedUsers = localStorage.getItem('users');
+            if (savedUsers) {
+                users = JSON.parse(savedUsers);
+            }
+            
+            // Load current user session
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                isAdmin = (currentUser.username === 'varnika');
+                updateUserInterface();
+            }
+            
+            // Load admin-set rates
+            const savedGoldRate = localStorage.getItem('adminGoldRate');
+            const savedSilverRate = localStorage.getItem('adminSilverRate');
+            if (savedGoldRate) goldRate = parseFloat(savedGoldRate);
+            if (savedSilverRate) silverRate = parseFloat(savedSilverRate);
+            
+            // Load rate history
+            const savedHistory = localStorage.getItem('rateHistory');
+            if (savedHistory) {
+                rateHistory = JSON.parse(savedHistory);
+            }
+            
+            updateRateDisplay();
+        }
+        
+        // Open authentication modal
+        function openAuth() {
+            document.getElementById('authModal').classList.remove('hidden');
+            showLogin(); // Default to login form
+        }
+        
+        // Close authentication modal
+        function closeAuth() {
+            document.getElementById('authModal').classList.add('hidden');
+            // Clear form fields
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('registerName').value = '';
+            document.getElementById('registerUsername').value = '';
+            document.getElementById('registerEmail').value = '';
+            document.getElementById('registerPassword').value = '';
+        }
+        
+        // Show login form
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('authTitle').textContent = 'Login';
+        }
+        
+        // Show register form
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('authTitle').textContent = 'Register';
+        }
+        
+        // Handle user login
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            // Check for admin login
+            if (username === 'varnika' && password === '4444') {
+                currentUser = { username: 'varnika', name: 'Admin', isAdmin: true };
+                isAdmin = true;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUserInterface();
+                closeAuth();
+                
+                // Show admin panel immediately
+                setTimeout(() => {
+                    openAdmin();
+                }, 500);
+                
+                alert('Welcome Admin! You can now manage gold and silver rates.');
+                return;
+            }
+            
+            // Check for regular user login
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                currentUser = { ...user, isAdmin: false };
+                isAdmin = false;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUserInterface();
+                closeAuth();
+                alert(`Welcome back, ${user.name}!`);
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        }
+        
+        // Handle user registration
+        function handleRegister(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            const name = document.getElementById('registerName').value.trim();
+            const username = document.getElementById('registerUsername').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            
+            // Check if username already exists
+            if (users.some(u => u.username === username)) {
+                alert('Username already exists. Please choose a different username.');
+                return;
+            }
+            
+            // Check if email already exists
+            if (users.some(u => u.email === email)) {
+                alert('Email already registered. Please use a different email.');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(), // Simple ID generation
+                name: name,
+                username: username,
+                email: email,
+                password: password, // In real app, this should be hashed
+                registeredAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            alert('Registration successful! You can now login.');
+            showLogin(); // Switch to login form
+        }
+        
+        // Update user interface based on login status
+        function updateUserInterface() {
+            if (currentUser) {
+                // Show logged-in state
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('userProfileSection').classList.remove('hidden');
+                document.getElementById('welcomeUser').textContent = `Hi, ${currentUser.name}`;
+                
+                // Mobile interface
+                document.getElementById('mobileLoginSection').classList.add('hidden');
+                document.getElementById('mobileUserProfileSection').classList.remove('hidden');
+                document.getElementById('mobileWelcomeUser').textContent = `Hi, ${currentUser.name}`;
+            } else {
+                // Show logged-out state
+                document.getElementById('loginSection').classList.remove('hidden');
+                document.getElementById('userProfileSection').classList.add('hidden');
+                
+                // Mobile interface
+                document.getElementById('mobileLoginSection').classList.remove('hidden');
+                document.getElementById('mobileUserProfileSection').classList.add('hidden');
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            currentUser = null;
+            isAdmin = false;
+            localStorage.removeItem('currentUser');
+            updateUserInterface();
+            alert('You have been logged out successfully.');
+        }
+        
+        // ===== ADMIN PANEL FUNCTIONS =====
+        // These functions handle the admin interface for managing rates
+        
+        // Open admin panel (only for admin users)
+        function openAdmin() {
+            if (!isAdmin) {
+                alert('Access denied. Admin privileges required.');
+                return;
+            }
+            
+            document.getElementById('adminModal').classList.remove('hidden');
+            updateAdminInterface();
+        }
+        
+        // Close admin panel
+        function closeAdmin() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+        
+        // Update admin interface with current rates
+        function updateAdminInterface() {
+            document.getElementById('adminCurrentGold').textContent = goldRate;
+            document.getElementById('adminCurrentSilver').textContent = silverRate;
+            document.getElementById('newGoldRate').value = goldRate;
+            document.getElementById('newSilverRate').value = silverRate;
+            
+            // Update rate history display
+            updateRateHistoryDisplay();
+        }
+        
+        // Update rates (admin function)
+        function updateRates(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            if (!isAdmin) {
+                alert('Access denied. Admin privileges required.');
+                return;
+            }
+            
+            const newGold = parseFloat(document.getElementById('newGoldRate').value);
+            const newSilver = parseFloat(document.getElementById('newSilverRate').value);
+            
+            // Validate rates
+            if (newGold <= 0 || newSilver <= 0) {
+                alert('Please enter valid positive rates.');
+                return;
+            }
+            
+            // Store old rates for history
+            const oldGold = goldRate;
+            const oldSilver = silverRate;
+            
+            // Update rates
+            goldRate = newGold;
+            silverRate = newSilver;
+            
+            // Save to browser storage
+            localStorage.setItem('adminGoldRate', goldRate.toString());
+            localStorage.setItem('adminSilverRate', silverRate.toString());
+            
+            // Add to rate history
+            const historyEntry = {
+                timestamp: new Date().toISOString(),
+                goldRate: { old: oldGold, new: newGold },
+                silverRate: { old: oldSilver, new: newSilver },
+                updatedBy: currentUser.name
+            };
+            
+            rateHistory.unshift(historyEntry); // Add to beginning of array
+            if (rateHistory.length > 10) {
+                rateHistory = rateHistory.slice(0, 10); // Keep only last 10 entries
+            }
+            
+            localStorage.setItem('rateHistory', JSON.stringify(rateHistory));
+            
+            // Update all displays
+            updateRateDisplay();
+            updateAdminInterface();
+            refreshCurrentView(); // Refresh product prices
+            
+            alert('Rates updated successfully! All product prices have been recalculated.');
+        }
+        
+        // Update rate display throughout the website
+        function updateRateDisplay() {
+            document.getElementById('goldRate').textContent = `Gold: ₹${goldRate}/g`;
+            document.getElementById('silverRate').textContent = `Silver: ₹${silverRate}/g`;
+        }
+        
+        // Update rate history display in admin panel
+        function updateRateHistoryDisplay() {
+            const container = document.getElementById('rateHistory');
+            container.innerHTML = '';
+            
+            if (rateHistory.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-sm">No rate updates yet</p>';
+                return;
+            }
+            
+            rateHistory.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'text-xs bg-white rounded p-2';
+                
+                const date = new Date(entry.timestamp).toLocaleString();
+                const goldChange = entry.goldRate.new - entry.goldRate.old;
+                const silverChange = entry.silverRate.new - entry.silverRate.old;
+                
+                div.innerHTML = `
+                    <div class="font-semibold">${date}</div>
+                    <div class="text-gray-600">
+                        Gold: ₹${entry.goldRate.old} → ₹${entry.goldRate.new} 
+                        <span class="${goldChange >= 0 ? 'text-green-600' : 'text-red-600'}">
+                            (${goldChange >= 0 ? '+' : ''}${goldChange.toFixed(2)})
+                        </span>
+                    </div>
+                    <div class="text-gray-600">
+                        Silver: ₹${entry.silverRate.old} → ₹${entry.silverRate.new}
+                        <span class="${silverChange >= 0 ? 'text-green-600' : 'text-red-600'}">
+                            (${silverChange >= 0 ? '+' : ''}${silverChange.toFixed(2)})
+                        </span>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+
+        // ===== CURSOR TRAIL FUNCTIONALITY =====
+        // Creates the beautiful golden sparkle effect that follows your mouse
+        function initCursorTrail() {
+            // Get the cursor elements from HTML
+            const cursorDot = document.getElementById('cursorDot');        // Main golden dot
+            const cursorOutline = document.getElementById('cursorOutline'); // Outline circle
+            
+            // Variables to track mouse position and animation
+            let mouseX = 0, mouseY = 0;     // Current mouse position
+            let outlineX = 0, outlineY = 0; // Outline position (follows with delay)
+            let sparkleCounter = 0;         // Counter to control sparkle frequency
+            
+            // Listen for mouse movement across the entire page
+            document.addEventListener('mousemove', (e) => {
+                // Get current mouse coordinates
+                mouseX = e.clientX;  // Horizontal position
+                mouseY = e.clientY;  // Vertical position
+                
+                // Move the main cursor dot to follow mouse exactly
+                cursorDot.style.left = mouseX - 10 + 'px';  // Center the 20px dot
+                cursorDot.style.top = mouseY - 10 + 'px';
+                
+                // Create sparkle trail every few pixels of movement
+                sparkleCounter++;
+                if (sparkleCounter % 3 === 0) {  // Every 3rd movement
+                    createSparkleTrail(mouseX, mouseY);  // Create a sparkle
+                }
+            });
+            
+            function animateOutline() {
+                outlineX += (mouseX - outlineX) * 0.1;
+                outlineY += (mouseY - outlineY) * 0.1;
+                
+                cursorOutline.style.left = outlineX - 10 + 'px';
+                cursorOutline.style.top = outlineY - 10 + 'px';
+                
+                requestAnimationFrame(animateOutline);
+            }
+            
+            function createSparkleTrail(x, y) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle-trail';
+                sparkle.style.left = (x - 3 + Math.random() * 10 - 5) + 'px';
+                sparkle.style.top = (y - 3 + Math.random() * 10 - 5) + 'px';
+                
+                document.body.appendChild(sparkle);
+                
+                // Remove sparkle after animation completes
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.parentNode.removeChild(sparkle);
+                    }
+                }, 1000);
+            }
+            
+            animateOutline();
+            
+            // Hide cursor trail on mobile
+            if (window.innerWidth <= 768) {
+                cursorDot.style.display = 'none';
+                cursorOutline.style.display = 'none';
+            }
+        }
+
+        // Fetch live gold and silver rates
+        async function fetchLiveRates() {
+            try {
+                // Check if admin has set custom rates
+                const savedGoldRate = localStorage.getItem('adminGoldRate');
+                const savedSilverRate = localStorage.getItem('adminSilverRate');
+                
+                if (savedGoldRate && savedSilverRate) {
+                    // Use admin-set rates
+                    goldRate = parseFloat(savedGoldRate);
+                    silverRate = parseFloat(savedSilverRate);
+                } else {
+                    // Use default rates with slight fluctuation for demo
+                    const goldFluctuation = (Math.random() - 0.5) * 200;
+                    const silverFluctuation = (Math.random() - 0.5) * 10;
+                    
+                    goldRate = Math.round(6500 + goldFluctuation);
+                    silverRate = Math.round(85 + silverFluctuation);
+                }
+                
+                updateRateDisplay();
+            } catch (error) {
+                console.error('Error fetching rates:', error);
+                goldRate = 6500;
+                silverRate = 85;
+                updateRateDisplay();
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('mobileThemeToggle').addEventListener('click', toggleTheme);
+            
+            // Search
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.getElementById('mobileSearchInput').addEventListener('input', handleMobileSearch);
+            
+            // Mobile menu toggles
+            document.getElementById('mobileSearchToggle').addEventListener('click', toggleMobileSearch);
+            document.getElementById('mobileMenuToggle').addEventListener('click', toggleMobileMenu);
+            
+            // Wishlist and cart buttons
+            document.getElementById('wishlistBtn').addEventListener('click', openWishlist);
+            document.getElementById('cartBtn').addEventListener('click', openCart);
+            
+            // Update rates every 30 seconds
+            setInterval(fetchLiveRates, 30000);
+        }
+
+        // Mobile menu functions
+        function toggleMobileSearch() {
+            const searchBar = document.getElementById('mobileSearchBar');
+            const menu = document.getElementById('mobileMenu');
+            
+            searchBar.classList.toggle('hidden');
+            menu.classList.add('hidden');
+            
+            if (!searchBar.classList.contains('hidden')) {
+                document.getElementById('mobileSearchInput').focus();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const searchBar = document.getElementById('mobileSearchBar');
+            
+            menu.classList.toggle('hidden');
+            searchBar.classList.add('hidden');
+        }
+
+        function handleMobileSearch(event) {
+            handleSearch(event);
+        }
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved data
+        function loadSavedData() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+            
+            const savedWishlist = localStorage.getItem('wishlist');
+            if (savedWishlist) {
+                wishlist = JSON.parse(savedWishlist);
+                updateWishlistCount();
+            }
+            
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartCount();
+            }
+        }
+
+        // Show category (gold or silver)
+        function showCategory(category) {
+            currentCategory = category;
+            currentView = 'subcategory';
+            
+            document.getElementById('categoryView').classList.add('hidden');
+            document.getElementById('subcategoryView').classList.remove('hidden');
+            document.getElementById('productsView').classList.add('hidden');
+            document.getElementById('searchResults').classList.add('hidden');
+            
+            document.getElementById('subcategoryTitle').textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} Collection`;
+            
+            const subcategories = Object.keys(jewelryData[category]);
+            const grid = document.getElementById('subcategoryGrid');
+            grid.innerHTML = '';
+            
+            subcategories.forEach(subcat => {
+                const subcatCard = createSubcategoryCard(subcat, category);
+                grid.appendChild(subcatCard);
+            });
+        }
+
+        // Create subcategory card
+        function createSubcategoryCard(subcategory, category) {
+            const div = document.createElement('div');
+            div.className = 'light-card rounded-xl overflow-hidden cursor-pointer transform hover:scale-105 transition-transform duration-300';
+            div.onclick = () => showProducts(category, subcategory);
+            
+            const getIcon = (subcategory) => {
+                const iconMap = {
+                    'jhumki': '👂', 'necklace': '📿', 'rings': '💍', 'bangles': '⚪', 'earrings': '👂',
+                    'chains': '🔗', 'pendants': '🔸', 'bracelets': '⚪', 'anklets': '🦶', 'nosepins': '👃',
+                    'toerings': '👣', 'armlets': '💪', 'hairaccessories': '💇', 'brooches': '📌', 'cufflinks': '👔',
+                    'mangalsutra': '💒', 'waistchains': '⛓️', 'maangtikka': '👸', 'passa': '👑', 'kalire': '🔔',
+                    'templejewelry': '🏛️', 'kundansets': '💎', 'polkisets': '✨', 'antiquesets': '🏺', 'bridalsets': '👰',
+                    'partywear': '🎉', 'dailywear': '☀️', 'officewear': '💼', 'festivewear': '🎊', 'weddingjewelry': '💒',
+                    'diamondsets': '💎', 'gemstonesets': '💎', 'pearlsets': '🤍', 'coralsets': '🪸', 'emeraldsets': '💚',
+                    'rubysets': '❤️', 'sapphiresets': '💙', 'tanzanitesets': '💜', 'topazsets': '💛', 'amethystsets': '💜',
+                    'traditionalsets': '🏛️', 'contemporarysets': '🎨', 'fusionsets': '🌈', 'minimalistsets': '⚪', 'statementsets': '⭐',
+                    'layeredsets': '📚', 'stackablesets': '🥞', 'convertiblesets': '🔄', 'modularsets': '🧩', 'designersets': '🎨',
+                    'oxidizedjewelry': '🌑', 'tribaljewelry': '🏹', 'bohemiansets': '🌸', 'vintagesets': '📻', 'filigreework': '🕸️',
+                    'engravedsets': '✍️', 'texturedsets': '🌊', 'hammeredsets': '🔨', 'polishedsets': '✨', 'mattefinish': '🌫️',
+                    'blacksilver': '⚫', 'rosegoldplated': '🌹', 'goldplated': '🟡', 'turquoisesets': '🟦', 'onyxsets': '⚫',
+                    'moonstonesets': '🌙', 'labradoritesets': '🌌', 'garnetsets': '🔴', 'citrinesets': '🟡', 'handcraftedsets': '🤲'
+                };
+                return iconMap[subcategory] || '💎';
+            };
+            
+            const displayName = subcategory.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim();
+            
+            div.innerHTML = `
+                <div class="${category === 'gold' ? 'gradient-gold' : 'gradient-silver'} h-16 sm:h-20 flex items-center justify-center">
+                    <span class="text-2xl sm:text-3xl">${getIcon(subcategory)}</span>
+                </div>
+                <div class="p-2 sm:p-3">
+                    <h3 class="text-xs sm:text-sm font-bold text-gray-800 leading-tight">${displayName}</h3>
+                    <p class="text-xs text-gray-600">${jewelryData[category][subcategory].length} items</p>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Show products
+        function showProducts(category, subcategory) {
+            currentSubcategory = subcategory;
+            currentView = 'products';
+            
+            document.getElementById('subcategoryView').classList.add('hidden');
+            document.getElementById('productsView').classList.remove('hidden');
+            
+            document.getElementById('productsTitle').textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} ${subcategory.charAt(0).toUpperCase() + subcategory.slice(1)}`;
+            
+            const products = jewelryData[category][subcategory];
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = createProductCard(product, category);
+                grid.appendChild(productCard);
+            });
+        }
+
+        // ===== PRODUCT CARD CREATION FUNCTION =====
+        // Creates the visual card for each jewelry item with pricing
+        function createProductCard(product, category) {
+            // Create a new HTML div element for the product card
+            const div = document.createElement('div');
+            div.className = 'product-card bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden';
+            
+            // ===== PRICE CALCULATION =====
+            // Calculate the total price based on current market rates
+            const rate = category === 'gold' ? goldRate : silverRate;  // Get current rate per gram
+            const basePrice = Math.round(product.weight * rate);       // Weight × Rate = Base Price
+            const makingCharges = Math.round(basePrice * 0.15);        // 15% making charges
+            const totalPrice = basePrice + makingCharges;              // Final price customer pays
+            
+            const isInWishlist = wishlist.some(item => item.id === product.id);
+            const isInCart = cart.some(item => item.id === product.id);
+            
+            div.innerHTML = `
+                <div class="zoom-container h-32 sm:h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                    <span class="zoom-image text-4xl sm:text-6xl">${product.image}</span>
+                </div>
+                <div class="p-3 sm:p-4">
+                    <h3 class="text-sm sm:text-lg font-bold text-gray-800 mb-2 line-clamp-2">${product.name}</h3>
+                    <div class="space-y-1 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
+                        <p><span class="font-semibold">Weight:</span> ${product.weight}g</p>
+                        <p><span class="font-semibold">Rate:</span> ₹${rate}/g</p>
+                        <p><span class="font-semibold">Base Price:</span> ₹${basePrice.toLocaleString()}</p>
+                        <p><span class="font-semibold">Making Charges:</span> ₹${makingCharges.toLocaleString()}</p>
+                        <p class="text-sm sm:text-lg font-bold text-${category === 'gold' ? 'yellow' : 'gray'}-600">Total: ₹${totalPrice.toLocaleString()}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mb-2 sm:mb-3">
+                        ${product.designs.slice(0, 2).map(design => `<span class="px-1 sm:px-2 py-1 bg-gray-200 dark:bg-gray-600 text-xs rounded">${design}</span>`).join('')}
+                        ${product.designs.length > 2 ? `<span class="px-1 sm:px-2 py-1 bg-gray-200 dark:bg-gray-600 text-xs rounded">+${product.designs.length - 2}</span>` : ''}
+                    </div>
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                        <button onclick="toggleWishlist('${product.id}', '${category}')" 
+                                class="flex-1 px-2 sm:px-3 py-2 ${isInWishlist ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-lg text-xs sm:text-sm font-semibold hover:opacity-80 transition-opacity">
+                            <i class="fas fa-heart mr-1"></i><span class="hidden sm:inline">${isInWishlist ? 'In Wishlist' : 'Wishlist'}</span><span class="sm:hidden">♥</span>
+                        </button>
+                        <button onclick="toggleCart('${product.id}', '${category}')" 
+                                class="flex-1 px-2 sm:px-3 py-2 ${isInCart ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'} rounded-lg text-xs sm:text-sm font-semibold hover:opacity-80 transition-opacity">
+                            <i class="fas fa-shopping-cart mr-1"></i><span class="hidden sm:inline">${isInCart ? 'In Cart' : 'Add to Cart'}</span><span class="sm:hidden">🛒</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // ===== WISHLIST FUNCTIONALITY =====
+        // Adds or removes items from user's wishlist (favorite items)
+        function toggleWishlist(productId, category) {
+            // Find the product in our data
+            const product = findProduct(productId, category);
+            if (!product) return;  // Exit if product not found
+            
+            // Check if item is already in wishlist
+            const existingIndex = wishlist.findIndex(item => item.id === productId);
+            
+            if (existingIndex > -1) {
+                // Item exists in wishlist - remove it
+                wishlist.splice(existingIndex, 1);
+            } else {
+                // Item not in wishlist - add it
+                wishlist.push({...product, category});  // Add product with category info
+            }
+            
+            // Save updated wishlist to browser storage (persists between visits)
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();  // Update the red counter badge
+            refreshCurrentView();   // Refresh the page to show updated heart icons
+        }
+
+        // ===== SHOPPING CART FUNCTIONALITY =====
+        // Adds or removes items from user's shopping cart
+        function toggleCart(productId, category) {
+            // Find the product in our data
+            const product = findProduct(productId, category);
+            if (!product) return;  // Exit if product not found
+            
+            // Check if item is already in cart
+            const existingIndex = cart.findIndex(item => item.id === productId);
+            
+            if (existingIndex > -1) {
+                // Item exists in cart - remove it
+                cart.splice(existingIndex, 1);
+            } else {
+                // Item not in cart - add it with quantity 1
+                cart.push({...product, category, quantity: 1});
+            }
+            
+            // Save updated cart to browser storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();    // Update the yellow counter badge
+            refreshCurrentView(); // Refresh the page to show updated cart buttons
+        }
+
+        // Find product by ID
+        function findProduct(productId, category) {
+            for (const subcategory in jewelryData[category]) {
+                const product = jewelryData[category][subcategory].find(p => p.id === productId);
+                if (product) return product;
+            }
+            return null;
+        }
+
+        // Update wishlist count
+        function updateWishlistCount() {
+            document.getElementById('wishlistCount').textContent = wishlist.length;
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Open wishlist modal
+        function openWishlist() {
+            document.getElementById('wishlistModal').classList.remove('hidden');
+            renderWishlistItems();
+        }
+
+        // Close wishlist modal
+        function closeWishlist() {
+            document.getElementById('wishlistModal').classList.add('hidden');
+        }
+
+        // Render wishlist items
+        function renderWishlistItems() {
+            const container = document.getElementById('wishlistItems');
+            container.innerHTML = '';
+            
+            if (wishlist.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center col-span-full">Your wishlist is empty</p>';
+                return;
+            }
+            
+            wishlist.forEach(item => {
+                const rate = item.category === 'gold' ? goldRate : silverRate;
+                const totalPrice = Math.round(item.weight * rate * 1.15);
+                
+                const div = document.createElement('div');
+                div.className = 'light-card rounded-lg p-3 sm:p-4';
+                div.innerHTML = `
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <span class="text-xl sm:text-2xl flex-shrink-0">${item.image}</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-semibold text-gray-800 text-sm sm:text-base truncate">${item.name}</h4>
+                            <p class="text-xs sm:text-sm text-gray-600">₹${totalPrice.toLocaleString()}</p>
+                        </div>
+                        <button onclick="toggleCart('${item.id}', '${item.category}')" class="bg-yellow-500 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm hover:bg-yellow-600 transition-colors flex-shrink-0">
+                            <span class="hidden sm:inline">Add to Cart</span>
+                            <span class="sm:hidden">Add</span>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Open cart modal
+        function openCart() {
+            document.getElementById('cartModal').classList.remove('hidden');
+            renderCartItems();
+        }
+
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+
+        // Render cart items
+        function renderCartItems() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center">Your cart is empty</p>';
+                document.getElementById('cartTotal').textContent = '0';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const rate = item.category === 'gold' ? goldRate : silverRate;
+                const itemTotal = Math.round(item.weight * rate * 1.15 * item.quantity);
+                total += itemTotal;
+                
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 dark:bg-gray-700 rounded-lg p-3 sm:p-4';
+                div.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+                            <span class="text-xl sm:text-2xl flex-shrink-0">${item.image}</span>
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-semibold text-gray-800 dark:text-white text-sm sm:text-base truncate">${item.name}</h4>
+                                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">${item.weight}g × ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+                            <span class="font-semibold text-gray-800 dark:text-white text-sm sm:text-base">₹${itemTotal.toLocaleString()}</span>
+                            <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-600 p-1">
+                                <i class="fas fa-trash text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            
+            document.getElementById('cartTotal').textContent = total.toLocaleString();
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+            refreshCurrentView();
+        }
+
+        // ===== WHATSAPP CHECKOUT FUNCTIONALITY =====
+        // Creates a WhatsApp message with order details and opens WhatsApp
+        function checkout() {
+            // Check if cart has items
+            if (cart.length === 0) {
+                alert('Your cart is empty!');  // Show error message
+                return;  // Exit function
+            }
+            
+            // Build the WhatsApp message
+            let message = "Hi! I want to place an order for the following items:\n\n";
+            let total = 0;  // Track total order value
+            
+            // Loop through each item in cart
+            cart.forEach(item => {
+                // Calculate price for this item
+                const rate = item.category === 'gold' ? goldRate : silverRate;  // Get current rate
+                const itemTotal = Math.round(item.weight * rate * 1.15 * item.quantity);  // Price with making charges
+                total += itemTotal;  // Add to total
+                
+                // Add item details to message
+                message += `${item.name}\n`;                                    // Product name
+                message += `Weight: ${item.weight}g\n`;                        // Weight in grams
+                message += `Quantity: ${item.quantity}\n`;                     // How many pieces
+                message += `Price: ₹${itemTotal.toLocaleString()}\n\n`;       // Price with commas
+            });
+            
+            // Add total and closing message
+            message += `Total Amount: ₹${total.toLocaleString()}\n\n`;
+            message += "Please contact me to proceed with the order. Thank you!";
+            
+            // Create WhatsApp URL with the message
+            const whatsappUrl = `https://wa.me/917464870444?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');  // Open WhatsApp in new tab
+        }
+
+        // Handle search
+        function handleSearch(event) {
+            const query = event.target.value.toLowerCase().trim();
+            
+            if (query === '') {
+                document.getElementById('searchResults').classList.add('hidden');
+                if (currentView === 'search') {
+                    showCategoryView();
+                }
+                return;
+            }
+            
+            currentView = 'search';
+            document.getElementById('categoryView').classList.add('hidden');
+            document.getElementById('subcategoryView').classList.add('hidden');
+            document.getElementById('productsView').classList.add('hidden');
+            document.getElementById('searchResults').classList.remove('hidden');
+            
+            const results = [];
+            
+            // Search through all products
+            Object.keys(jewelryData).forEach(category => {
+                Object.keys(jewelryData[category]).forEach(subcategory => {
+                    jewelryData[category][subcategory].forEach(product => {
+                        if (product.name.toLowerCase().includes(query) || 
+                            subcategory.toLowerCase().includes(query) ||
+                            product.designs.some(design => design.toLowerCase().includes(query))) {
+                            results.push({...product, category, subcategory});
+                        }
+                    });
+                });
+            });
+            
+            const grid = document.getElementById('searchGrid');
+            grid.innerHTML = '';
+            
+            if (results.length === 0) {
+                grid.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center col-span-full">No products found</p>';
+                return;
+            }
+            
+            results.forEach(product => {
+                const productCard = createProductCard(product, product.category);
+                grid.appendChild(productCard);
+            });
+        }
+
+        // Navigation functions
+        function showCategoryView() {
+            currentView = 'category';
+            document.getElementById('categoryView').classList.remove('hidden');
+            document.getElementById('subcategoryView').classList.add('hidden');
+            document.getElementById('productsView').classList.add('hidden');
+            document.getElementById('searchResults').classList.add('hidden');
+            document.getElementById('searchInput').value = '';
+        }
+
+        function goBack() {
+            if (currentView === 'products') {
+                showCategory(currentCategory);
+            } else {
+                showCategoryView();
+            }
+        }
+
+        // Refresh current view
+        function refreshCurrentView() {
+            if (currentView === 'products') {
+                showProducts(currentCategory, currentSubcategory);
+            } else if (currentView === 'search') {
+                const searchInput = document.getElementById('searchInput');
+                handleSearch({target: {value: searchInput.value}});
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9744a9cef56048fe',t:'MTc1NjA1NzUyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
