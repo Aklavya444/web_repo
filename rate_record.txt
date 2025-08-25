@@ -1,2 +1,2 @@
-gold=6
+gold=615
 silver=8
