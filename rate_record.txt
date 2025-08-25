@@ -1,2 +1,2 @@
-gold=615
-silver=510
+gold=10000
+silver=20000
