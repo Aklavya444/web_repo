@@ -1,2 +1,2 @@
-gold=121212
-silver=787878
+gold=65000
+silver=800
