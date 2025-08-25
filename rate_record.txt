@@ -1,2 +1,2 @@
-gold=12345
-silver=54321
+gold=11111
+silver=22222
