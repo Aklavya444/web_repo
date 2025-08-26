@@ -1,3 +1,3 @@
 gold=74
-silver=2
-last_updated=2025-08-26T09:05:27.617Z
+silver=85
+last_updated=2025-08-26T09:05:51.829Z
