@@ -1,2 +1,2 @@
-gold=20
-silver=50
+gold=87
+silver=55
