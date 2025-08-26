@@ -1,2 +1,2 @@
-gold=9345
-silver=108
+gold=202020
+silver=101010
