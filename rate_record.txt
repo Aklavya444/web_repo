@@ -1,2 +1,2 @@
-gold=5000000
+gold=4
 silver=44
