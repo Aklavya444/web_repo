@@ -1,2 +1,2 @@
-gold=500
-silver=10
+gold=20
+silver=50
